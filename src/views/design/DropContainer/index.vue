@@ -24,45 +24,38 @@ import { Component, Vue } from 'vue-property-decorator';
 import draggable from 'vuedraggable';
 
 @Component({
-  name: 'DropContainer',
-
-  components: { draggable },
-
-  data() {
-    return {
-      activeItem: null,
-      viewList: [
-        {
-          id: 1,
-          tagName: 'text_input',
-          name: '文本框',
-          traits: [
-            { tagName: 'text_input', name: 'label', label: 'Label', value: '' }
-          ]
-        },
-        { id: 2, tagName: 'text_input', name: '文本框' }
-      ]
-    };
-  },
-
-  computed: {
-    formatViewList() {
-      return this.$data.viewList.map((item: any, index: number) => ({
-        ...item,
-        id: `${new Date().getTime()}_${index}`
-      }));
-    }
-  },
-
-  watch: {},
-
-  methods: {
-    handleItemSelect(item) {
-      this.$data.activeItem = item.id;
-    }
-  }
+  components: { draggable }
 })
-export default class Home extends Vue {}
+export default class DropContainer extends Vue {
+  private activeItem: string | null = '2';
+  private viewList: Array<any> = [
+    {
+      id: '1',
+      tagName: 'text_input',
+      name: '文本框',
+      traits: [
+        { tagName: 'text_input', name: 'label', label: 'Label', value: '' }
+      ]
+    },
+    { id: '2', tagName: 'text_input', name: '文本框' }
+  ];
+
+  //   计算属性
+  get schema(): object {
+    return this.$store.state.design.schema;
+  }
+
+  get formatViewList(): any {
+    return this.viewList.map((item: any, index: number) => ({
+      ...item,
+      id: `${new Date().getTime()}_${index}`
+    }));
+  }
+
+  handleItemSelect(item: any) {
+    this.activeItem = item.id;
+  }
+}
 </script>
 
 <style lang="less" module>

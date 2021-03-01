@@ -1,6 +1,8 @@
 <!--  -->
 <template>
-  <a-layout-sider theme="light">Traits</a-layout-sider>
+  <a-layout-sider theme="light"
+                  width="300"
+                  :class="$style.traitsContainer">Traits</a-layout-sider>
 
 </template>
 
@@ -26,6 +28,7 @@ export default class Home extends Vue {}
 </script>
 
 <style lang="less" module>
-.container {
+.traitsContainer {
+  width: 300px;
 }
 </style>
